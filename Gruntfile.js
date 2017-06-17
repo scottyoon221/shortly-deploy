@@ -7,11 +7,10 @@ module.exports = function(grunt) {
         seperator: ';'
       },
       dist: {
-        src: ['public/client/**/*.js', 'public/lib/**/*.js'],
+        src: ['public/client/*.js'],
         // the location of the resulting JS file
-        dest: 'public/dist/<%= pkg.name %>.js'
+        dest: 'public/dist/<%= pkg.name %>.js',
       }
-      
     },
 
     mochaTest: {
