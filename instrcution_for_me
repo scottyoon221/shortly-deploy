@@ -1,0 +1,10 @@
+Digital Ocean:
+1. get 1028MB RAM machine
+2. From post-receive file, add following:
+
+#!/bin/sh
+git --work-tree=/var/www/your_cloned_foler --git-dir=/var/repo/site.git checkout -f
+
+
+Local environment:
+1. To bypass password prompt for git add live master: ssh-add 
