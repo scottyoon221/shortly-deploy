@@ -37,8 +37,9 @@ module.exports = function(grunt) {
     },
 
     eslint: {
-      target: [
+      src: [
         // Add list of files to lint here
+        './**/*.js', '!./node_modules/**/*.js', '!./public/lib/*.js', '!./public/dist/*.js', '!./lib/*.js'
       ]
     },
 
@@ -91,22 +92,26 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
+  grunt.registerTask('build', ['eslint', 'test'
   ]);
 
-  grunt.registerTask('upload', function(n) {
-    if (grunt.option('prod')) {
+  grunt.registerTask('upload', function(isProd) {
+    if (isProd) {
       // add your production server task here
       grunt.task.run(['shell:prodServer']);
-      
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
-  grunt.registerTask('deploy', [
+  grunt.registerTask('deploy', function() {
     // add your deploy tasks here
-  ]);
+    if (grunt.option('prod')) {
+      grunt.task.run(['build', 'upload:true']);
+    } else {
+      grunt.task.run(['build']);
+    }
+  });
 
 
 };
